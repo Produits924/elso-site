@@ -1,23 +1,2015 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
   <head>
-    <title>Home</title>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Produits Locaux Frais - Authentiques Produits Camerounais</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        background: linear-gradient(135deg, #2d7d32 0%, #388e3c 100%);
+        overflow-x: hidden;
+      }
+
+      /* Navigation - Enhanced Mobile */
+      nav {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        z-index: 1000;
+        padding: 0.8rem 0;
+        transition: all 0.3s ease;
+      }
+
+      nav.scrolled {
+        background: rgba(255, 255, 255, 0.98);
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        padding: 0.5rem 0;
+      }
+
+      nav .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 1rem;
+      }
+
+      .logo {
+        font-size: clamp(1.3rem, 4vw, 1.8rem);
+        font-weight: bold;
+        background: linear-gradient(135deg, #2d7d32, #d32f2f);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      /* Mobile Menu */
+      .mobile-menu-toggle {
+        display: none;
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        color: #333;
+        cursor: pointer;
+        padding: 0.5rem;
+      }
+
+      nav ul {
+        display: flex;
+        list-style: none;
+        gap: 1.5rem;
+      }
+
+      nav a {
+        text-decoration: none;
+        color: #333;
+        font-weight: 500;
+        transition: color 0.3s ease;
+        position: relative;
+        padding: 0.5rem 1rem;
+        border-radius: 25px;
+      }
+
+      nav a:hover {
+        color: #2d7d32;
+        background: rgba(45, 125, 50, 0.1);
+      }
+
+      nav a::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: 0;
+        left: 50%;
+        background: linear-gradient(135deg, #2d7d32, #d32f2f);
+        transition: all 0.3s ease;
+        transform: translateX(-50%);
+      }
+
+      nav a:hover::after {
+        width: 80%;
+      }
+
+      /* Hero Section - Enhanced Mobile */
+      .hero {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+        background: linear-gradient(
+          135deg,
+          #2d7d32 0%,
+          #388e3c 50%,
+          #ffb300 100%
+        );
+        padding: 2rem 0;
+      }
+
+      .hero::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: radial-gradient(
+            circle at 30% 40%,
+            rgba(255, 255, 255, 0.1) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 80% 70%,
+            rgba(255, 255, 255, 0.08) 0%,
+            transparent 50%
+          );
+        animation: float 20s ease-in-out infinite;
+      }
+
+      .hero-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1rem;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 3rem;
+        align-items: center;
+        position: relative;
+        z-index: 2;
+      }
+
+      .hero-text {
+        color: white;
+        text-align: center;
+      }
+
+      .hero h1 {
+        font-size: clamp(2rem, 6vw, 4rem);
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        line-height: 1.2;
+        opacity: 0;
+        animation: slideInUp 1s ease 0.5s forwards;
+      }
+
+      .hero p {
+        font-size: clamp(1rem, 3vw, 1.3rem);
+        margin-bottom: 2rem;
+        opacity: 0;
+        animation: slideInUp 1s ease 0.7s forwards;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .cta-buttons {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+        opacity: 0;
+        animation: slideInUp 1s ease 0.9s forwards;
+      }
+
+      .btn {
+        padding: 1rem 2rem;
+        border: none;
+        border-radius: 50px;
+        font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-block;
+        position: relative;
+        overflow: hidden;
+        min-width: 180px;
+        text-align: center;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, #d32f2f, #f57c00);
+        color: white;
+        box-shadow: 0 4px 15px rgba(211, 47, 47, 0.4);
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(211, 47, 47, 0.6);
+      }
+
+      .btn-secondary {
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        backdrop-filter: blur(10px);
+      }
+
+      .btn-secondary:hover {
+        background: rgba(255, 255, 255, 0.3);
+        transform: translateY(-3px);
+      }
+
+      .hero-visual {
+        position: relative;
+        opacity: 0;
+        animation: slideInUp 1s ease 0.6s forwards;
+        display: flex;
+        justify-content: center;
+      }
+
+      .product-showcase {
+        width: 100%;
+        max-width: 400px;
+        height: 300px;
+        background: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.2),
+          rgba(255, 255, 255, 0.1)
+        );
+        border-radius: 20px;
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+        animation: pulse 3s ease-in-out infinite;
+      }
+
+      .product-showcase::before {
+        content: '🇨🇲';
+        font-size: 4rem;
+        opacity: 0.8;
+        margin-right: 1rem;
+      }
+
+      .product-showcase::after {
+        content: '🌾';
+        font-size: 3rem;
+        opacity: 0.6;
+      }
+
+      /* Products Section - Enhanced Grid */
+      .products {
+        padding: 4rem 0;
+        background: white;
+        position: relative;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1rem;
+      }
+
+      .section-title {
+        text-align: center;
+        margin-bottom: 3rem;
+      }
+
+      .section-title h2 {
+        font-size: clamp(2rem, 5vw, 2.5rem);
+        color: #333;
+        margin-bottom: 1rem;
+      }
+
+      .section-title p {
+        font-size: clamp(1rem, 3vw, 1.2rem);
+        color: #666;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      .category-section {
+        margin-bottom: 4rem;
+      }
+
+      .category-title {
+        font-size: clamp(1.5rem, 4vw, 2rem);
+        color: #2d7d32;
+        text-align: center;
+        margin-bottom: 2rem;
+        padding-bottom: 1rem;
+        border-bottom: 3px solid #ffb300;
+        display: block;
+        width: 100%;
+        position: relative;
+      }
+
+      .category-title::before {
+        content: '';
+        position: absolute;
+        bottom: -3px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100px;
+        height: 3px;
+        background: linear-gradient(135deg, #2d7d32, #d32f2f);
+        border-radius: 2px;
+      }
+
+      .products-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 2rem;
+        margin-bottom: 3rem;
+      }
+
+      .product-card {
+        background: white;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        position: relative;
+      }
+
+      .product-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+      }
+
+      .product-image {
+        width: 100%;
+        height: 200px;
+        background-size: cover;
+        background-position: center;
+        position: relative;
+        transition: transform 0.3s ease;
+      }
+
+      .product-badge {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: linear-gradient(135deg, #2d7d32, #388e3c);
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: bold;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      .product-info {
+        padding: 1.5rem;
+      }
+
+      .product-info h3 {
+        font-size: 1.3rem;
+        color: #333;
+        margin-bottom: 0.5rem;
+        line-height: 1.3;
+      }
+
+      .product-info p {
+        color: #666;
+        margin-bottom: 1rem;
+        font-size: 0.95rem;
+        line-height: 1.5;
+      }
+
+      .product-price {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      .price {
+        font-size: 1.4rem;
+        font-weight: bold;
+        color: #d32f2f;
+      }
+
+      .old-price {
+        text-decoration: line-through;
+        color: #999;
+        font-size: 1rem;
+      }
+
+      .whatsapp-btn {
+        background: #25d366;
+        color: white;
+        padding: 0.8rem 1.5rem;
+        border: none;
+        border-radius: 25px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        width: 100%;
+        text-align: center;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        font-size: 0.95rem;
+      }
+
+      .whatsapp-btn:hover {
+        background: #128c7e;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+      }
+
+      .whatsapp-btn::before {
+        content: '\f232';
+        font-family: 'Font Awesome 6 Brands';
+        font-size: 1.1rem;
+      }
+
+      /* Delivery Section - Enhanced Icons */
+      .delivery-info {
+        background: linear-gradient(135deg, #ffb300, #ff8f00);
+        color: white;
+        padding: 4rem 0;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .delivery-info::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="40" r="1.5" fill="rgba(255,255,255,0.1)"/><circle cx="40" cy="80" r="1" fill="rgba(255,255,255,0.1)"/></svg>');
+        opacity: 0.3;
+      }
+
+      .delivery-features {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        margin-top: 3rem;
+        position: relative;
+        z-index: 2;
+      }
+
+      .delivery-feature {
+        padding: 2rem 1rem;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 15px;
+        backdrop-filter: blur(10px);
+        transition: all 0.3s ease;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .delivery-feature:hover {
+        transform: translateY(-5px);
+        background: rgba(255, 255, 255, 0.15);
+      }
+
+      .delivery-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        display: inline-block;
+        color: rgba(255, 255, 255, 0.9);
+      }
+
+      .delivery-feature h3 {
+        font-size: 1.3rem;
+        margin-bottom: 1rem;
+        color: white;
+      }
+
+      .delivery-feature p {
+        font-size: 1rem;
+        line-height: 1.5;
+        color: rgba(255, 255, 255, 0.9);
+      }
+
+      /* Partners Section - Enhanced Icons */
+      .partners {
+        padding: 4rem 0;
+        background: #f8f9fa;
+      }
+
+      .partners-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+      }
+
+      .partner-card {
+        background: white;
+        padding: 2rem;
+        border-radius: 15px;
+        text-align: center;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+      }
+
+      .partner-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+      }
+
+      .partner-icon {
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(135deg, #2d7d32, #d32f2f);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1.5rem;
+        font-size: 2rem;
+        color: white;
+        box-shadow: 0 4px 15px rgba(45, 125, 50, 0.3);
+        transition: all 0.3s ease;
+      }
+
+      .partner-card:hover .partner-icon {
+        transform: scale(1.1);
+        box-shadow: 0 6px 20px rgba(45, 125, 50, 0.4);
+      }
+
+      .whatsapp-contact {
+        background: #25d366;
+        color: white;
+        padding: 1rem 2rem;
+        border-radius: 25px;
+        font-weight: 600;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: 1rem;
+        transition: all 0.3s ease;
+      }
+
+      .whatsapp-contact:hover {
+        background: #128c7e;
+        transform: scale(1.05);
+      }
+
+      .whatsapp-contact::before {
+        content: '\f232';
+        font-family: 'Font Awesome 6 Brands';
+      }
+
+      /* Testimonials - Enhanced */
+      .testimonials {
+        padding: 4rem 0;
+        background: linear-gradient(135deg, #2d7d32 0%, #388e3c 100%);
+        color: white;
+      }
+
+      .testimonial {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 2rem;
+        border-radius: 20px;
+        backdrop-filter: blur(10px);
+        margin-bottom: 2rem;
+        text-align: center;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        transition: all 0.3s ease;
+      }
+
+      .testimonial:hover {
+        background: rgba(255, 255, 255, 0.15);
+        transform: translateY(-5px);
+      }
+
+      .testimonial blockquote {
+        font-size: clamp(1rem, 3vw, 1.3rem);
+        line-height: 1.6;
+        margin-bottom: 2rem;
+        font-style: italic;
+        position: relative;
+      }
+
+      .testimonial blockquote::before {
+        content: '\f10d';
+        font-family: 'Font Awesome 6 Free';
+        font-weight: 900;
+        position: absolute;
+        top: -10px;
+        left: -30px;
+        font-size: 2rem;
+        opacity: 0.3;
+      }
+
+      .testimonial-author {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+      }
+
+      .author-avatar {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #d32f2f, #ff8f00);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.5rem;
+        font-weight: bold;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Contact Section - Enhanced Icons */
+      .contact {
+        padding: 4rem 0;
+        background: white;
+      }
+
+      .contact-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+      }
+
+      .contact-card {
+        text-align: center;
+        padding: 2rem;
+        border-radius: 15px;
+        background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+        transition: all 0.3s ease;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+      }
+
+      .contact-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+      }
+
+      .contact-icon {
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(135deg, #2d7d32, #d32f2f);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1.5rem;
+        color: white;
+        box-shadow: 0 4px 15px rgba(45, 125, 50, 0.3);
+        transition: all 0.3s ease;
+      }
+
+      .contact-card:hover .contact-icon {
+        transform: scale(1.1);
+      }
+
+      .contact-icon i {
+        font-size: 1.8rem;
+      }
+
+      /* Footer - Enhanced */
+      footer {
+        background: #2c3e50;
+        color: white;
+        padding: 3rem 0 1rem;
+      }
+
+      .footer-content {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        margin-bottom: 2rem;
+      }
+
+      .footer-section h3 {
+        margin-bottom: 1rem;
+        color: #2d7d32;
+        font-size: 1.2rem;
+      }
+
+      .footer-section p,
+      .footer-section a {
+        color: #bdc3c7;
+        text-decoration: none;
+        line-height: 1.6;
+        margin-bottom: 0.5rem;
+        display: block;
+      }
+
+      .footer-section a:hover {
+        color: white;
+      }
+
+      .footer-bottom {
+        text-align: center;
+        padding-top: 2rem;
+        border-top: 1px solid #34495e;
+        color: #bdc3c7;
+      }
+
+      /* Animations */
+      @keyframes slideInUp {
+        from {
+          transform: translateY(50px);
+          opacity: 0;
+        }
+
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px) rotate(0deg);
+        }
+
+        50% {
+          transform: translateY(-20px) rotate(2deg);
+        }
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+
+        50% {
+          transform: scale(1.02);
+        }
+      }
+
+      /* Enhanced Mobile Responsiveness */
+      @media (max-width: 768px) {
+        .mobile-menu-toggle {
+          display: block;
+        }
+
+        nav ul {
+          display: none;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          width: 100%;
+          background: rgba(255, 255, 255, 0.98);
+          backdrop-filter: blur(10px);
+          flex-direction: column;
+          gap: 0;
+          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        nav ul.mobile-open {
+          display: flex;
+        }
+
+        nav li {
+          border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        nav a {
+          padding: 1rem;
+          display: block;
+          text-align: center;
+          border-radius: 0;
+        }
+
+        .hero-content {
+          grid-template-columns: 1fr;
+          text-align: center;
+          gap: 2rem;
+          padding: 1rem;
+        }
+
+        .hero {
+          min-height: 90vh;
+          padding-top: 80px;
+        }
+
+        .cta-buttons {
+          flex-direction: column;
+          align-items: center;
+          gap: 1rem;
+        }
+
+        .btn {
+          width: 100%;
+          max-width: 280px;
+        }
+
+        .products-grid {
+          grid-template-columns: 1fr;
+          gap: 1.5rem;
+        }
+
+        .delivery-features {
+          grid-template-columns: 1fr;
+          gap: 1.5rem;
+        }
+
+        .partners-grid {
+          grid-template-columns: 1fr;
+          gap: 1.5rem;
+        }
+
+        .contact-grid {
+          grid-template-columns: 1fr;
+          gap: 1.5rem;
+        }
+
+        .footer-content {
+          grid-template-columns: 1fr;
+          text-align: center;
+        }
+
+        .product-showcase {
+          height: 250px;
+          margin: 0 1rem;
+        }
+
+        .hero h1 {
+          font-size: 2.5rem;
+        }
+
+        .section-title h2 {
+          font-size: 2rem;
+        }
+
+        .category-title {
+          font-size: 1.5rem;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .container {
+          padding: 0 0.5rem;
+        }
+
+        .hero {
+          padding-top: 70px;
+        }
+
+        .product-card,
+        .partner-card,
+        .contact-card {
+          margin: 0 0.5rem;
+        }
+
+        .btn {
+          padding: 0.8rem 1.5rem;
+          font-size: 1rem;
+        }
+
+        .products,
+        .delivery-info,
+        .partners,
+        .testimonials,
+        .contact {
+          padding: 3rem 0;
+        }
+      }
+
+      /* Tablet Responsiveness */
+      @media (min-width: 769px) and (max-width: 1024px) {
+        .hero-content {
+          grid-template-columns: 1fr 1fr;
+          gap: 3rem;
+        }
+
+        .products-grid {
+          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+
+        .partners-grid {
+          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        }
+      }
+
+      /* Large Desktop */
+      @media (min-width: 1200px) {
+        .hero-content {
+          grid-template-columns: 1fr 1fr;
+          gap: 4rem;
+        }
+
+        .hero-text {
+          text-align: left;
+        }
+
+        .cta-buttons {
+          justify-content: flex-start;
+        }
+      }
+
+      /* High DPI Displays */
+      @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+        .product-image {
+          background-size: cover;
+          background-position: center;
+        }
+      }
+
+      /* Dark Mode Support */
+      @media (prefers-color-scheme: dark) {
+        .product-card,
+        .partner-card,
+        .contact-card {
+          background: #2d3748;
+          color: #e2e8f0;
+          border-color: #4a5568;
+        }
+
+        .product-info h3 {
+          color: #e2e8f0;
+        }
+
+        .product-info p {
+          color: #a0aec0;
+        }
+      }
+    </style>
   </head>
+
   <body>
-    <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/page2.html">Other page</a>
+    <!-- Navigation -->
+    <nav id="navbar">
+      <div class="container">
+        <div class="logo">Produits Locaux Frais</div>
+        <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+          <i class="fas fa-bars"></i>
+        </button>
+        <ul id="nav-menu">
+          <li><a href="#accueil">Accueil</a></li>
+          <li><a href="#produits">Produits</a></li>
+          <li><a href="#livraison">Livraison</a></li>
+          <li><a href="#partenaires">Partenaires</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
     </nav>
-    <main>
-      <h1>Home page</h1>
-    </main>
+
+    <!-- Hero Section -->
+    <section class="hero" id="accueil">
+      <div class="hero-content">
+        <div class="hero-text">
+          <h1>Produits Authentiques du Cameroun</h1>
+          <p>
+            Découvrez la richesse des produits locaux camerounais : agricoles,
+            cosmétiques, artisanaux et bien plus. Qualité garantie, livraison à
+            domicile partout au Cameroun.
+          </p>
+          <div class="cta-buttons">
+            <a href="#produits" class="btn btn-primary"
+              >Découvrir nos Produits</a
+            >
+            <a href="#contact" class="btn btn-secondary">Nous Contacter</a>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="product-showcase"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products" id="produits">
+      <div class="container">
+        <div class="section-title">
+          <h2>Nos Produits de Qualité</h2>
+          <p>
+            Une sélection rigoureuse de produits locaux authentiques et de haute
+            qualité avec livraison à domicile
+          </p>
+        </div>
+
+        <!-- Produits Agricoles -->
+        <div class="category-section">
+          <h3 class="category-title">
+            <i class="fas fa-seedling"></i> Produits Agricoles Frais
+          </h3>
+          <div class="products-grid">
+            <div class="product-card">
+              <div
+                class="product-image"
+                style="
+                  background: linear-gradient(
+                      135deg,
+                      rgba(76, 175, 80, 0.9),
+                      rgba(129, 199, 132, 0.9)
+                    ),
+                    url('https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?w=500&h=300&fit=crop')
+                      center/cover no-repeat;
+                "
+              >
+                <div class="product-badge">Bio</div>
+              </div>
+              <div class="product-info">
+                <h3>Bananes Plantains Premium</h3>
+                <p>
+                  Bananes plantains fraîches du Sud-Ouest, parfaites pour vos
+                  plats traditionnels. Livraison à domicile disponible.
+                </p>
+                <div class="product-price">
+                  <span class="price">3,380 FCFA/kg</span>
+                  <span class="old-price">2,600 FCFA/kg</span>
+                </div>
+                <a href="https://wa.me/237674642760" class="whatsapp-btn"
+                  >Commander sur WhatsApp</a
+                >
+              </div>
+            </div>
+
+            <div class="product-card">
+              <div
+                class="product-image"
+                style="
+                  background: linear-gradient(
+                      135deg,
+                      rgba(244, 67, 54, 0.9),
+                      rgba(239, 83, 80, 0.9)
+                    ),
+                    url('https://images.unsplash.com/photo-1546470427-e26264b2f165?w=500&h=300&fit=crop')
+                      center/cover no-repeat;
+                "
+              >
+                <div class="product-badge">Local</div>
+              </div>
+              <div class="product-info">
+                <h3>Tomates Fraîches</h3>
+                <p>
+                  Tomates juteuses et savoureuses cultivées dans la région de
+                  l'Ouest. Parfaites pour vos sauces.
+                </p>
+                <div class="product-price">
+                  <span class="price">2,535 FCFA/kg</span>
+                  <span class="old-price">1,950 FCFA/kg</span>
+                </div>
+                <a href="https://wa.me/237674642760" class="whatsapp-btn"
+                  >Commander sur WhatsApp</a
+                >
+              </div>
+            </div>
+
+            <div class="product-card">
+              <div
+                class="product-image"
+                style="
+                  background: linear-gradient(
+                      135deg,
+                      rgba(76, 175, 80, 0.9),
+                      rgba(102, 187, 106, 0.9)
+                    ),
+                    url('https://images.unsplash.com/photo-1540420773420-3366772f4999?w=500&h=300&fit=crop')
+                      center/cover no-repeat;
+                "
+              >
+                <div class="product-badge">Bio</div>
+              </div>
+              <div class="product-info">
+                <h3>Légumes Verts Bio</h3>
+                <p>
+                  Assortiment de légumes verts cultivés sans pesticides dans nos
+                  fermes partenaires.
+                </p>
+                <div class="product-price">
+                  <span class="price">4,225 FCFA/panier</span>
+                  <span class="old-price">3,250 FCFA/panier</span>
+                </div>
+                <a href="https://wa.me/237674642760" class="whatsapp-btn"
+                  >Commander sur WhatsApp</a
+                >
+              </div>
+            </div>
+
+            <div class="product-card">
+              <div
+                class="product-image"
+                style="
+                  background: linear-gradient(
+                      135deg,
+                      rgba(141, 110, 99, 0.9),
+                      rgba(161, 136, 127, 0.9)
+                    ),
+                    url('https://images.unsplash.com/photo-1509358271058-acd22cc93898?w=500&h=300&fit=crop')
+                      center/cover no-repeat;
+                "
+              >
+                <div class="product-badge">Traditionnel</div>
+              </div>
+              <div class="product-info">
+                <h3>Ignames de Qualité</h3>
+                <p>
+                  Ignames fraîches de la région de l'Adamaoua, tubercules de
+                  première qualité.
+                </p>
+                <div class="product-price">
+                  <span class="price">2,925 FCFA/kg</span>
+                  <span class="old-price">2,250 FCFA/kg</span>
+                </div>
+                <a href="https://wa.me/237674642760" class="whatsapp-btn"
+                  >Commander sur WhatsApp</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Produits Cosmétiques -->
+        <div class="category-section">
+          <h3 class="category-title">
+            <i class="fas fa-spa"></i> Cosmétiques Naturels
+          </h3>
+          <div class="products-grid">
+            <div class="product-card">
+              <div
+                class="product-image"
+                style="
+                  background: linear-gradient(
+                      135deg,
+                      rgba(255, 193, 7, 0.9),
+                      rgba(255, 179, 0, 0.9)
+                    ),
+                    url('https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=500&h=300&fit=crop')
+                      center/cover no-repeat;
+                "
+              >
+                <div class="product-badge">100% Naturel</div>
+              </div>
+              <div class="product-info">
+                <h3>Beurre de Karité Premium</h3>
+                <p>
+                  Beurre de karité pur et non raffiné, idéal pour nourrir et
+                  protéger votre peau. Livraison gratuite.
+                </p>
+                <div class="product-price">
+                  <span class="price">8,450 FCFA/250g</span>
+                  <span class="old-price">6,500 FCFA/250g</span>
+                </div>
+                <a href="https://wa.me/237640129649" class="whatsapp-btn"
+                  >Commander sur WhatsApp</a
+                >
+              </div>
+            </div>
+
+            <div class="product-card">
+              <div
+                class="product-image"
+                style="
+                  background: linear-gradient(
+                      135deg,
+                      rgba(109, 76, 65, 0.9),
+                      rgba(141, 110, 99, 0.9)
+                    ),
+                    url('https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=500&h=300&fit=crop')
+                      center/cover no-repeat;
+                "
+              >
+                <div class="product-badge">Traditionnel</div>
+              </div>
+              <div class="product-info">
+                <h3>Savon Noir Africain</h3>
+                <p>
+                  Savon noir traditionnel aux propriétés purifiantes et
+                  exfoliantes naturelles.
+                </p>
+                <div class="product-price">
+                  <span class="price">5,070 FCFA/pièce</span>
+                  <span class="old-price">3,900 FCFA/pièce</span>
+                </div>
+                <a href="https://wa.me/237640129649" class="whatsapp-btn"
+                  >Commander sur WhatsApp</a
+                >
+              </div>
+            </div>
+
+            <div class="product-card">
+              <div
+                class="product-image"
+                style="
+                  background: linear-gradient(
+                      135deg,
+                      rgba(156, 39, 176, 0.9),
+                      rgba(186, 104, 200, 0.9)
+                    ),
+                    url('https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=500&h=300&fit=crop')
+                      center/cover no-repeat;
+                "
+              >
+                <div class="product-badge">Premium</div>
+              </div>
+              <div class="product-info">
+                <h3>Huiles Essentielles Locales</h3>
+                <p>
+                  Collection d'huiles essentielles extraites de plantes
+                  camerounaises authentiques.
+                </p>
+                <div class="product-price">
+                  <span class="price">9,750 FCFA/50ml</span>
+                  <span class="old-price">7,500 FCFA/50ml</span>
+                </div>
+                <a href="https://wa.me/237640129649" class="whatsapp-btn"
+                  >Commander sur WhatsApp</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Textiles -->
+        <div class="category-section">
+          <h3 class="category-title">
+            <i class="fas fa-tshirt"></i> Textiles Traditionnels
+          </h3>
+          <div class="products-grid">
+            <div class="product-card">
+              <div
+                class="product-image"
+                style="
+                  background: linear-gradient(
+                      135deg,
+                      rgba(255, 87, 34, 0.9),
+                      rgba(255, 138, 101, 0.9)
+                    ),
+                    url('https://images.unsplash.com/photo-1509631179647-0177331693ae?w=500&h=300&fit=crop')
+                      center/cover no-repeat;
+                "
+              >
+                <div class="product-badge">Authentique</div>
+              </div>
+              <div class="product-info">
+                <h3>Tissus Wax Premium</h3>
+                <p>
+                  Tissus wax de haute qualité aux motifs colorés et
+                  authentiques, parfaits pour vos créations.
+                </p>
+                <div class="product-price">
+                  <span class="price">15,600 FCFA/6 yards</span>
+                  <span class="old-price">12,000 FCFA/6 yards</span>
+                </div>
+                <a href="https://wa.me/237676133272" class="whatsapp-btn"
+                  >Commander sur WhatsApp</a
+                >
+              </div>
+            </div>
+
+            <div class="product-card">
+              <div
+                class="product-image"
+                style="
+                  background: linear-gradient(
+                      135deg,
+                      rgba(121, 85, 72, 0.9),
+                      rgba(141, 110, 99, 0.9)
+                    ),
+                    url('https://images.unsplash.com/photo-1594736797933-d0401ba2fe65?w=500&h=300&fit=crop')
+                      center/cover no-repeat;
+                "
+              >
+                <div class="product-badge">Artisanal</div>
+              </div>
+              <div class="product-info">
+                <h3>Pagnes Traditionnels</h3>
+                <p>
+                  Pagnes camerounais authentiques, tissés selon les méthodes
+                  traditionnelles de nos ancêtres.
+                </p>
+                <div class="product-price">
+                  <span class="price">19,500 FCFA/pièce</span>
+                  <span class="old-price">15,000 FCFA/pièce</span>
+                </div>
+                <a href="https://wa.me/237676133272" class="whatsapp-btn"
+                  >Commander sur WhatsApp</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Artisanat -->
+        <div class="category-section">
+          <h3 class="category-title">
+            <i class="fas fa-palette"></i> Artisanat Traditionnel
+          </h3>
+          <div class="products-grid">
+            <div class="product-card">
+              <div
+                class="product-image"
+                style="
+                  background: linear-gradient(
+                      135deg,
+                      rgba(62, 39, 35, 0.9),
+                      rgba(93, 64, 55, 0.9)
+                    ),
+                    url('https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=500&h=300&fit=crop')
+                      center/cover no-repeat;
+                "
+              >
+                <div class="product-badge">Authentique</div>
+              </div>
+              <div class="product-info">
+                <h3>Masques Traditionnels de l'Ouest</h3>
+                <p>
+                  Masques sculptés à la main par les artisans de l'Ouest
+                  Cameroun, pièces d'art authentiques.
+                </p>
+                <div class="product-price">
+                  <span class="price">65,000 FCFA/pièce</span>
+                  <span class="old-price">50,000 FCFA/pièce</span>
+                </div>
+                <a href="https://wa.me/237676133272" class="whatsapp-btn"
+                  >Commander sur WhatsApp</a
+                >
+              </div>
+            </div>
+
+            <div class="product-card">
+              <div
+                class="product-image"
+                style="
+                  background: linear-gradient(
+                      135deg,
+                      rgba(141, 110, 99, 0.9),
+                      rgba(161, 136, 127, 0.9)
+                    ),
+                    url('https://images.unsplash.com/photo-1577563123514-9717cbaac2b3?w=500&h=300&fit=crop')
+                      center/cover no-repeat;
+                "
+              >
+                <div class="product-badge">Bamiléké</div>
+              </div>
+              <div class="product-info">
+                <h3>Sculptures Bamiléké</h3>
+                <p>
+                  Sculptures traditionnelles Bamiléké en bois précieux, œuvres
+                  d'art uniques de nos maîtres sculpteurs.
+                </p>
+                <div class="product-price">
+                  <span class="price">97,500 FCFA/pièce</span>
+                  <span class="old-price">75,000 FCFA/pièce</span>
+                </div>
+                <a href="https://wa.me/237676133272" class="whatsapp-btn"
+                  >Commander sur WhatsApp</a
+                >
+              </div>
+            </div>
+
+            <div class="product-card">
+              <div
+                class="product-image"
+                style="
+                  background: linear-gradient(
+                      135deg,
+                      rgba(212, 172, 13, 0.9),
+                      rgba(241, 196, 15, 0.9)
+                    ),
+                    url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=500&h=300&fit=crop')
+                      center/cover no-repeat;
+                "
+              >
+                <div class="product-badge">Fait Main</div>
+              </div>
+              <div class="product-info">
+                <h3>Paniers Artisanaux</h3>
+                <p>
+                  Paniers tressés à la main avec des fibres naturelles locales,
+                  parfaits pour la décoration.
+                </p>
+                <div class="product-price">
+                  <span class="price">16,250 FCFA/pièce</span>
+                  <span class="old-price">12,500 FCFA/pièce</span>
+                </div>
+                <a href="https://wa.me/237676133272" class="whatsapp-btn"
+                  >Commander sur WhatsApp</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Épices et Condiments -->
+        <div class="category-section">
+          <h3 class="category-title">
+            <i class="fas fa-pepper-hot"></i> Épices et Condiments
+          </h3>
+          <div class="products-grid">
+            <div class="product-card">
+              <div
+                class="product-image"
+                style="
+                  background: linear-gradient(
+                      135deg,
+                      rgba(211, 47, 47, 0.9),
+                      rgba(244, 67, 54, 0.9)
+                    ),
+                    url('https://images.unsplash.com/photo-1583286491052-8fb8ae9f8c8b?w=500&h=300&fit=crop')
+                      center/cover no-repeat;
+                "
+              >
+                <div class="product-badge">Piquant</div>
+              </div>
+              <div class="product-info">
+                <h3>Piment Rouge Camerounais</h3>
+                <p>
+                  Piment rouge séché et moulu, épice incontournable de la
+                  cuisine camerounaise.
+                </p>
+                <div class="product-price">
+                  <span class="price">3,900 FCFA/500g</span>
+                  <span class="old-price">3,000 FCFA/500g</span>
+                </div>
+                <a href="https://wa.me/237674642760" class="whatsapp-btn"
+                  >Commander sur WhatsApp</a
+                >
+              </div>
+            </div>
+
+            <div class="product-card">
+              <div
+                class="product-image"
+                style="
+                  background: linear-gradient(
+                      135deg,
+                      rgba(255, 143, 0, 0.9),
+                      rgba(255, 179, 0, 0.9)
+                    ),
+                    url('https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=500&h=300&fit=crop')
+                      center/cover no-repeat;
+                "
+              >
+                <div class="product-badge">Aromatic</div>
+              </div>
+              <div class="product-info">
+                <h3>Mélange d'Épices Ndolé</h3>
+                <p>
+                  Mélange d'épices traditionnel spécialement préparé pour le
+                  plat national camerounais.
+                </p>
+                <div class="product-price">
+                  <span class="price">5,850 FCFA/paquet</span>
+                  <span class="old-price">4,500 FCFA/paquet</span>
+                </div>
+                <a href="https://wa.me/237674642760" class="whatsapp-btn"
+                  >Commander sur WhatsApp</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Delivery Section -->
+    <section class="delivery-info" id="livraison">
+      <div class="container">
+        <h2>Livraison à Domicile Partout au Cameroun</h2>
+        <p>
+          Service de livraison rapide et sécurisé dans toutes les régions du
+          Cameroun
+        </p>
+
+        <div class="delivery-features">
+          <div class="delivery-feature">
+            <div class="delivery-icon">
+              <i class="fas fa-truck-fast"></i>
+            </div>
+            <h3>Livraison Rapide</h3>
+            <p>
+              24-48h dans les grandes villes, 2-5 jours dans les zones rurales
+            </p>
+          </div>
+          <div class="delivery-feature">
+            <div class="delivery-icon">
+              <i class="fas fa-box-open"></i>
+            </div>
+            <h3>Emballage Sécurisé</h3>
+            <p>
+              Tous nos produits sont soigneusement emballés pour garantir leur
+              fraîcheur
+            </p>
+          </div>
+          <div class="delivery-feature">
+            <div class="delivery-icon">
+              <i class="fas fa-credit-card"></i>
+            </div>
+            <h3>Paiement Flexible</h3>
+            <p>Paiement à la livraison ou par Mobile Money (MTN/Orange)</p>
+          </div>
+          <div class="delivery-feature">
+            <div class="delivery-icon">
+              <i class="fas fa-shield-check"></i>
+            </div>
+            <h3>Qualité Garantie</h3>
+            <p>Satisfaction garantie ou remboursement intégral</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Partners Section -->
+    <section class="partners" id="partenaires">
+      <div class="container">
+        <div class="section-title">
+          <h2>Nos Entreprises Partenaires</h2>
+          <p>
+            Nous collaborons avec les meilleurs producteurs et artisans du
+            Cameroun
+          </p>
+        </div>
+
+        <div class="partners-grid">
+          <div class="partner-card">
+            <div class="partner-icon">
+              <i class="fas fa-seedling"></i>
+            </div>
+            <h3>Fermes Bio de l'Ouest</h3>
+            <p>
+              Spécialiste en produits agricoles biologiques et légumes frais de
+              la région de l'Ouest Cameroun.
+            </p>
+            <p>
+              <strong>Spécialités :</strong> Légumes bio, fruits frais,
+              tubercules
+            </p>
+            <a href="https://wa.me/237674642760" class="whatsapp-contact"
+              >WhatsApp uniquement: 674 642 760</a
+            >
+          </div>
+
+          <div class="partner-card">
+            <div class="partner-icon">
+              <i class="fas fa-spa"></i>
+            </div>
+            <h3>Cosmétiques Naturels du Nord</h3>
+            <p>
+              Producteur artisanal de cosmétiques naturels à base de karité et
+              d'ingrédients locaux authentiques.
+            </p>
+            <p>
+              <strong>Spécialités :</strong> Beurre de karité, savons noirs,
+              huiles essentielles
+            </p>
+            <a href="https://wa.me/237640129649" class="whatsapp-contact"
+              >WhatsApp uniquement: 640 129 649</a
+            >
+          </div>
+
+          <div class="partner-card">
+            <div class="partner-icon">
+              <i class="fas fa-palette"></i>
+            </div>
+            <h3>Artisans Traditionnels Bamiléké</h3>
+            <p>
+              Coopérative d'artisans spécialisée dans l'art traditionnel
+              camerounais et les textiles authentiques.
+            </p>
+            <p>
+              <strong>Spécialités :</strong> Sculptures, masques, textiles
+              traditionnels, objets d'art
+            </p>
+            <a href="https://wa.me/237676133272" class="whatsapp-contact"
+              >WhatsApp uniquement: 676 133 272</a
+            >
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+      <div class="container">
+        <div class="section-title">
+          <h2>Ce que disent nos clients</h2>
+          <p>Des témoignages authentiques de nos clients satisfaits</p>
+        </div>
+
+        <div class="testimonial">
+          <blockquote>
+            "Excellente qualité des produits ! Les bananes plantains sont
+            toujours fraîches et la livraison est rapide. Je recommande vivement
+            Produits Locaux Frais pour découvrir l'authenticité camerounaise."
+          </blockquote>
+          <div class="testimonial-author">
+            <div class="author-avatar">MN</div>
+            <div>
+              <strong>Marie Nguema</strong>
+              <p>Cliente fidèle - Yaoundé</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial">
+          <blockquote>
+            "Le beurre de karité est d'une qualité exceptionnelle ! Ma peau n'a
+            jamais été aussi douce. L'équipe est professionnelle et les prix
+            sont très raisonnables."
+          </blockquote>
+          <div class="testimonial-author">
+            <div class="author-avatar">FA</div>
+            <div>
+              <strong>Fatou Amadou</strong>
+              <p>Cliente régulière - Douala</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+      <div class="container">
+        <div class="section-title">
+          <h2>Contactez-Nous</h2>
+          <p>
+            Notre équipe est à votre disposition pour répondre à toutes vos
+            questions
+          </p>
+        </div>
+
+        <div class="contact-grid">
+          <div class="contact-card">
+            <div class="contact-icon">
+              <i class="fas fa-phone"></i>
+            </div>
+            <h3>Téléphone</h3>
+            <p>Appelez-nous pour vos commandes urgentes</p>
+            <a
+              href="tel:+33746368323"
+              style="color: #2d7d32; font-weight: bold; font-size: 1.2rem"
+              >+33 7 46 36 83 23</a
+            >
+          </div>
+
+          <div class="contact-card">
+            <div class="contact-icon">
+              <i class="fas fa-envelope"></i>
+            </div>
+            <h3>Email</h3>
+            <p>Écrivez-nous pour toute information</p>
+            <a
+              href="mailto:produitslocauxfrais@gmail.com"
+              style="color: #2d7d32; font-weight: bold; font-size: 1.1rem"
+              >produitslocauxfrais@gmail.com</a
+            >
+          </div>
+
+          <div class="contact-card">
+            <div class="contact-icon">
+              <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <h3>Localisation</h3>
+            <p>Nous livrons partout au Cameroun</p>
+            <strong style="color: #2d7d32"
+              >Yaoundé, Douala et toutes les régions</strong
+            >
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-section">
+            <h3><i class="fas fa-leaf"></i> Produits Locaux Frais</h3>
+            <p>
+              Votre partenaire de confiance pour découvrir l'authenticité des
+              produits camerounais. Qualité, fraîcheur et tradition au service
+              de votre satisfaction.
+            </p>
+          </div>
+
+          <div class="footer-section">
+            <h3><i class="fas fa-shopping-basket"></i> Nos Produits</h3>
+            <p><i class="fas fa-seedling"></i> Produits agricoles frais</p>
+            <p><i class="fas fa-spa"></i> Cosmétiques naturels</p>
+            <p><i class="fas fa-tshirt"></i> Textiles traditionnels</p>
+            <p><i class="fas fa-palette"></i> Artisanat authentique</p>
+            <p><i class="fas fa-pepper-hot"></i> Épices et condiments</p>
+          </div>
+
+          <div class="footer-section">
+            <h3><i class="fas fa-concierge-bell"></i> Services</h3>
+            <p><i class="fas fa-truck"></i> Livraison à domicile</p>
+            <p><i class="fas fa-shield-check"></i> Paiement sécurisé</p>
+            <p><i class="fas fa-headset"></i> Support client 24/7</p>
+            <p><i class="fas fa-award"></i> Garantie qualité</p>
+          </div>
+
+          <div class="footer-section">
+            <h3><i class="fas fa-phone-alt"></i> Contact Rapide</h3>
+            <p><i class="fas fa-envelope"></i> produitslocauxfrais@gmail.com</p>
+            <p><i class="fas fa-phone"></i> +33 7 46 36 83 23</p>
+            <p><i class="fas fa-globe-africa"></i> Partout au Cameroun</p>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>
+            &copy; 2025 Produits Locaux Frais. Tous droits réservés. | Fièrement
+            camerounais 🇨🇲
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Enhanced Navigation
+      function toggleMobileMenu() {
+        const menu = document.getElementById('nav-menu');
+        const toggle = document.querySelector('.mobile-menu-toggle i');
+
+        menu.classList.toggle('mobile-open');
+
+        if (menu.classList.contains('mobile-open')) {
+          toggle.classList.remove('fa-bars');
+          toggle.classList.add('fa-times');
+        } else {
+          toggle.classList.remove('fa-times');
+          toggle.classList.add('fa-bars');
+        }
+      }
+
+      // Close mobile menu when clicking on a link
+      document.querySelectorAll('nav a[href^="#"]').forEach((link) => {
+        link.addEventListener('click', () => {
+          const menu = document.getElementById('nav-menu');
+          const toggle = document.querySelector('.mobile-menu-toggle i');
+
+          menu.classList.remove('mobile-open');
+          toggle.classList.remove('fa-times');
+          toggle.classList.add('fa-bars');
+        });
+      });
+
+      // Enhanced Scroll Behavior
+      window.addEventListener('scroll', function () {
+        const navbar = document.getElementById('navbar');
+        if (window.scrollY > 50) {
+          navbar.classList.add('scrolled');
+        } else {
+          navbar.classList.remove('scrolled');
+        }
+      });
+
+      // Smooth Scrolling
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+            const offsetTop = target.offsetTop - 80; // Account for fixed nav
+            window.scrollTo({
+              top: offsetTop,
+              behavior: 'smooth',
+            });
+          }
+        });
+      });
+
+      // Enhanced Intersection Observer
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px',
+      };
+
+      const observer = new IntersectionObserver(function (entries) {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+            entry.target.classList.add('animate-in');
+          }
+        });
+      }, observerOptions);
+
+      // Observe elements for animation
+      document
+        .querySelectorAll(
+          '.product-card, .partner-card, .contact-card, .delivery-feature, .testimonial'
+        )
+        .forEach((card) => {
+          card.style.opacity = '0';
+          card.style.transform = 'translateY(30px)';
+          card.style.transition = 'all 0.6s ease';
+          observer.observe(card);
+        });
+
+      // Enhanced Button Interactions
+      document
+        .querySelectorAll('.whatsapp-btn, .whatsapp-contact')
+        .forEach((btn) => {
+          btn.addEventListener('click', function (e) {
+            // Add ripple effect
+            const ripple = document.createElement('span');
+            ripple.style.position = 'absolute';
+            ripple.style.borderRadius = '50%';
+            ripple.style.background = 'rgba(255, 255, 255, 0.6)';
+            ripple.style.transform = 'scale(0)';
+            ripple.style.animation = 'ripple 0.6s linear';
+            ripple.style.left = '50%';
+            ripple.style.top = '50%';
+            ripple.style.width = '20px';
+            ripple.style.height = '20px';
+            ripple.style.marginLeft = '-10px';
+            ripple.style.marginTop = '-10px';
+
+            this.style.position = 'relative';
+            this.appendChild(ripple);
+
+            setTimeout(() => {
+              ripple.remove();
+            }, 600);
+
+            // Scale animation
+            this.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+              this.style.transform = 'scale(1)';
+            }, 150);
+          });
+        });
+
+      // Enhanced Product Card Hover Effects
+      document.querySelectorAll('.product-card').forEach((card) => {
+        card.addEventListener('mouseenter', function () {
+          const image = this.querySelector('.product-image');
+          if (image) {
+            image.style.transform = 'scale(1.05)';
+          }
+
+          const badge = this.querySelector('.product-badge');
+          if (badge) {
+            badge.style.transform = 'scale(1.1)';
+          }
+        });
+
+        card.addEventListener('mouseleave', function () {
+          const image = this.querySelector('.product-image');
+          if (image) {
+            image.style.transform = 'scale(1)';
+          }
+
+          const badge = this.querySelector('.product-badge');
+          if (badge) {
+            badge.style.transform = 'scale(1)';
+          }
+        });
+      });
+
+      // Lazy Loading for Better Performance
+      if ('IntersectionObserver' in window) {
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const img = entry.target;
+              img.style.opacity = '1';
+              observer.unobserve(img);
+            }
+          });
+        });
+
+        document.querySelectorAll('.product-image').forEach((img) => {
+          img.style.opacity = '0.8';
+          img.style.transition = 'opacity 0.3s ease';
+          imageObserver.observe(img);
+        });
+      }
+
+      // Enhanced Parallax Effect for Hero
+      window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        const heroContent = document.querySelector('.hero-content');
+        const hero = document.querySelector('.hero');
+
+        if (heroContent && scrolled < hero.offsetHeight) {
+          heroContent.style.transform = `translateY(${scrolled * 0.5}px)`;
+        }
+      });
+
+      // Add ripple animation CSS
+      const style = document.createElement('style');
+      style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+            
+            .animate-in {
+                animation: slideInUp 0.6s ease forwards;
+            }
+            
+            @media (prefers-reduced-motion: reduce) {
+                * {
+                    animation-duration: 0.01ms !important;
+                    animation-iteration-count: 1 !important;
+                    transition-duration: 0.01ms !important;
+                }
+            }
+        `;
+      document.head.appendChild(style);
+
+      // Performance optimization: Debounce scroll events
+      function debounce(func, wait) {
+        let timeout;
+        return function executedFunction(...args) {
+          const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+          };
+          clearTimeout(timeout);
+          timeout = setTimeout(later, wait);
+        };
+      }
+
+      // Apply debounce to scroll events
+      const debouncedScroll = debounce(() => {
+        const navbar = document.getElementById('navbar');
+        if (window.scrollY > 50) {
+          navbar.classList.add('scrolled');
+        } else {
+          navbar.classList.remove('scrolled');
+        }
+      }, 10);
+
+      window.addEventListener('scroll', debouncedScroll);
+
+      // Accessibility: Focus management for mobile menu
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          const menu = document.getElementById('nav-menu');
+          const toggle = document.querySelector('.mobile-menu-toggle i');
+
+          if (menu.classList.contains('mobile-open')) {
+            menu.classList.remove('mobile-open');
+            toggle.classList.remove('fa-times');
+            toggle.classList.add('fa-bars');
+            document.querySelector('.mobile-menu-toggle').focus();
+          }
+        }
+      });
+
+      // Form validation and feedback (if needed later)
+      function showNotification(message, type = 'success') {
+        const notification = document.createElement('div');
+        notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: ${type === 'success' ? '#4caf50' : '#f44336'};
+                color: white;
+                padding: 1rem 2rem;
+                border-radius: 5px;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+                z-index: 10000;
+                opacity: 0;
+                transform: translateX(100%);
+                transition: all 0.3s ease;
+            `;
+        notification.textContent = message;
+        document.body.appendChild(notification);
+
+        setTimeout(() => {
+          notification.style.opacity = '1';
+          notification.style.transform = 'translateX(0)';
+        }, 100);
+
+        setTimeout(() => {
+          notification.style.opacity = '0';
+          notification.style.transform = 'translateX(100%)';
+          setTimeout(() => notification.remove(), 300);
+        }, 3000);
+      }
+
+      // Enhanced loading state
+      document.addEventListener('DOMContentLoaded', () => {
+        document.body.style.opacity = '0';
+        document.body.style.transition = 'opacity 0.5s ease';
+
+        setTimeout(() => {
+          document.body.style.opacity = '1';
+        }, 100);
+      });
+    </script>
   </body>
 </html>
